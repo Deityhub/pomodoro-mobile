@@ -26,8 +26,6 @@ const Timer = props => (
 const styles = StyleSheet.create({
   container: {
     flex: 3,
-    borderColor: "blue",
-    borderWidth: 2,
     alignItems: "center",
     justifyContent: "center"
   },

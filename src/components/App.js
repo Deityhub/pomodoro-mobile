@@ -13,8 +13,8 @@ export default class App extends Component {
         <Timer />
 
         <View style={styles.controlContainer}>
-          <Control title="break time" />
-          <Control title="work time" />
+          <Control title="Break time" />
+          <Control title="Work time" />
         </View>
       </View>
     );
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     flex: 1.5,
     flexDirection: "row",
     justifyContent: "space-around",
-    borderColor: "green",
-    borderWidth: 2
+    alignItems: "center"
   }
 });
