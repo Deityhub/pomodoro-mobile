@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
+import { Provider } from "react-redux";
 
+import store from "../store/index";
 import Title from "./Title";
 import Timer from "./Timer";
 import Control from "./Control";
@@ -8,15 +10,17 @@ import Control from "./Control";
 export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Title />
-        <Timer />
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Title />
+          <Timer />
 
-        <View style={styles.controlContainer}>
-          <Control title="Break time" />
-          <Control title="Work time" />
+          <View style={styles.controlContainer}>
+            <Control title="Break time" />
+            <Control title="Work time" />
+          </View>
         </View>
-      </View>
+      </Provider>
     );
   }
 }
