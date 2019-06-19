@@ -1,10 +1,16 @@
-import { START_BREAK, PAUSE_BREAK, RENEW_BREAK } from "../actions/action-types";
+import {
+  START_BREAK,
+  PAUSE_BREAK,
+  RENEW_BREAK,
+  INC_BREAK,
+  DEC_BREAK
+} from "../actions/action-types";
 import secondsToHms from "../lib/hmsConverter";
 
 const initialState = {
-  breakLength: 1,
-  currentBreakLength: 1 * 60,
-  breakTimeLeft: secondsToHms(1 * 60),
+  breakLength: 5,
+  currentBreakLength: 5 * 60,
+  breakTimeLeft: secondsToHms(5 * 60),
   runTimer: false,
   isBreak: false
 };
@@ -32,6 +38,32 @@ const breakReducer = (state = initialState, action) => {
         breakTimeLeft: secondsToHms(state.breakLength * 60),
         runTimer: false,
         isBreak: false
+      };
+    case INC_BREAK:
+      let incWorkingState = { ...state };
+      let incBreakLength = incWorkingState.breakLength;
+      if (incBreakLength < 60) incBreakLength += 1;
+
+      let incCurrentBreakLength = incBreakLength * 60;
+
+      return {
+        ...state,
+        breakLength: incBreakLength,
+        currentBreakLength: incCurrentBreakLength,
+        breakTimeLeft: secondsToHms(incCurrentBreakLength)
+      };
+    case DEC_BREAK:
+      let decWorkingState = { ...state };
+      let decBreakLength = decWorkingState.breakLength;
+      if (decBreakLength > 1) decBreakLength -= 1;
+
+      let decCurrentBreakLength = decBreakLength * 60;
+
+      return {
+        ...state,
+        breakLength: decBreakLength,
+        currentBreakLength: decCurrentBreakLength,
+        breakTimeLeft: secondsToHms(decCurrentBreakLength)
       };
     default:
       return state;

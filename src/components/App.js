@@ -16,8 +16,8 @@ export default class App extends Component {
           <Timer />
 
           <View style={styles.controlContainer}>
-            <Control title="Break time" />
-            <Control title="Work time" />
+            <Control title="Break time" control="break" />
+            <Control title="Work time" control="session" />
           </View>
         </View>
       </Provider>
