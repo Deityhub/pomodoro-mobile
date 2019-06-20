@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
 import { connect } from "react-redux";
+import Sound from "react-native-sound";
 
 import {
   startSession,
@@ -12,6 +13,19 @@ import {
 } from "../actions";
 import SessionTime from "./sessionTime";
 import BreakTime from "./breakTime";
+import BackgroundTimer from "../lib/backgroundTimer";
+
+// Enable playback in silence mode
+Sound.setCategory("Playback");
+
+// Load the sound file 'singing_clock.mp3' from the app bundle
+// See notes below about preloading sounds within initialization code below.
+let ringing = new Sound("ringing_clock.mp3", Sound.MAIN_BUNDLE, error => {
+  if (error) {
+    console.log("failed to load the sound", error);
+    return;
+  }
+});
 
 class Timer extends Component {
   //timerState 1 = session, 0 = break
@@ -20,10 +34,17 @@ class Timer extends Component {
   };
 
   startTimer = () => {
-    this.intervalId = setInterval(() => {
+    this.intervalId = BackgroundTimer.setInterval(() => {
       if (this.props.currentSessionLength <= 0) {
         //Todo
         //play alarm sound for notification
+        ringing.play(success => {
+          if (success) {
+            console.log("successfully finished playing");
+          } else {
+            console.log("playback failed due to audio decoding errors");
+          }
+        });
         return this.renewTimer();
       }
 
@@ -32,10 +53,17 @@ class Timer extends Component {
   };
 
   startBreak = () => {
-    this.intervalId = setInterval(() => {
+    this.intervalId = BackgroundTimer.setInterval(() => {
       if (this.props.currentBreakLength <= 0) {
         //Todo
         //play alarm sound for notification
+        ringing.play(success => {
+          if (success) {
+            console.log("successfully finished playing");
+          } else {
+            console.log("playback failed due to audio decoding errors");
+          }
+        });
         return this.renewBreak();
       }
 
@@ -45,30 +73,30 @@ class Timer extends Component {
 
   pauseTimer = () => {
     this.props.pauseSession();
-    clearInterval(this.intervalId);
+    BackgroundTimer.clearInterval(this.intervalId);
   };
 
   pauseBreak = () => {
     this.props.pauseBreak();
-    clearInterval(this.intervalId);
+    BackgroundTimer.clearInterval(this.intervalId);
   };
 
   renewTimer = () => {
     this.props.renewSession();
-    clearInterval(this.intervalId);
+    BackgroundTimer.clearInterval(this.intervalId);
     this.setState({ timerState: 0 });
     this.startBreak();
   };
 
   renewBreak = () => {
     this.props.renewBreak();
-    clearInterval(this.intervalId);
+    BackgroundTimer.clearInterval(this.intervalId);
     this.setState({ timerState: 1 });
     this.startTimer();
   };
 
   componentWillUnmount() {
-    clearInterval(this.intervalId);
+    BackgroundTimer.clearInterval(this.intervalId);
   }
 
   render() {
