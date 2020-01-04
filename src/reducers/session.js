@@ -8,9 +8,9 @@ import {
 import secondsToHms from "../lib/hmsConverter";
 
 const initialState = {
-  sessionLength: 1,
-  currentSessionLength: 1 * 60,
-  sessionTimeLeft: secondsToHms(1 * 60),
+  sessionLength: 25,
+  currentSessionLength: 25 * 60,
+  sessionTimeLeft: secondsToHms(25 * 60),
   runTimer: false,
   isBreak: false
 };
