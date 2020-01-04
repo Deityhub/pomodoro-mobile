@@ -8,9 +8,9 @@ import {
 import secondsToHms from "../lib/hmsConverter";
 
 const initialState = {
-  breakLength: 1,
-  currentBreakLength: 1 * 60,
-  breakTimeLeft: secondsToHms(1 * 60),
+  breakLength: 5,
+  currentBreakLength: 5 * 60,
+  breakTimeLeft: secondsToHms(5 * 60),
   runTimer: false,
   isBreak: false
 };
