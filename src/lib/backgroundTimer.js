@@ -1,6 +1,7 @@
-//This is a solution found on stackoverflow
-//that helps to solve the unexpected behaviour of react-native-background-timer
-// for reference purpose https://stackoverflow.com/questions/54833140/react-native-background-timer-never-stops
+/*This is a solution found on stackoverflow
+* that helps to solve the unexpected behaviour of react-native-background-timer
+* for reference purpose https://stackoverflow.com/questions/54833140/react-native-background-timer-never-stops
+*/
 
 import {
   DeviceEventEmitter,
